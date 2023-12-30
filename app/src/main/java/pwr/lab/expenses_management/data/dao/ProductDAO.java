@@ -9,7 +9,6 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import pwr.lab.expenses_management.data.entity.ProductCategoryEntity;
 import pwr.lab.expenses_management.data.entity.ProductEntity;
 
 @Dao

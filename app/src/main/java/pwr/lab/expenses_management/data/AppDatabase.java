@@ -9,8 +9,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.util.concurrent.Executors;
-
 import pwr.lab.expenses_management.data.dao.ProductCategoryDAO;
 import pwr.lab.expenses_management.data.dao.ProductDAO;
 import pwr.lab.expenses_management.data.entity.ProductCategoryEntity;

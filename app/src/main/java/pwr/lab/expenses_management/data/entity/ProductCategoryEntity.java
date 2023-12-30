@@ -29,8 +29,4 @@ public class ProductCategoryEntity {
     public Integer productId;
     @NotNull
     public String name;
-
-    public ProductCategoryEntity(@NotNull String name) {
-        this.name = name;
-    }
 }

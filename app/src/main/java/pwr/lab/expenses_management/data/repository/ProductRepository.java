@@ -11,23 +11,8 @@ public class ProductRepository {
 
     private ProductDAO productDAO;
 
-    private ProductRepository INSTANCE = null;
-
-    private ProductRepository(ProductDAO productDAO){
+    public ProductRepository(ProductDAO productDAO){
         this.productDAO = productDAO;
-    }
-
-    public ProductRepository getInstance(ProductDAO productDAO){
-
-        if(INSTANCE != null){
-            return INSTANCE;
-        }
-
-        return new ProductRepository(productDAO);
-    }
-
-    public ProductRepository getInstance(){
-        return INSTANCE;
     }
 
     public LiveData<List<ProductEntity>> getAll(){
