@@ -43,18 +43,18 @@ public abstract class AppDatabase extends RoomDatabase {
 
                         db.beginTransaction();
 
-                        String sql = """
-                        INSERT INTO PRODUCTS_CATEGORIES (name)
-                        VALUES
-                            ('Moda'),
-                            ('Kuchnia'),
-                            ('Dom'),
-                            ('Warsztat i auto'),
-                            ('Ogród i balkon'),
-                            ('Sport i wypoczynek')
-                    """;
+                        String loadCategoriesSQL = """
+                            INSERT INTO PRODUCTS_CATEGORIES (name)
+                            VALUES
+                                ('Moda'),
+                                ('Kuchnia'),
+                                ('Dom'),
+                                ('Warsztat i auto'),
+                                ('Ogród i balkon'),
+                                ('Sport i wypoczynek');
+                        """;
 
-                        db.execSQL(sql);
+                        db.execSQL(loadCategoriesSQL);
 
                         db.setTransactionSuccessful();
                         db.endTransaction();

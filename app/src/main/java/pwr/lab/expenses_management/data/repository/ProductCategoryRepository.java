@@ -1,5 +1,7 @@
 package pwr.lab.expenses_management.data.repository;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 import pwr.lab.expenses_management.data.dao.ProductCategoryDAO;
@@ -13,7 +15,11 @@ public class ProductCategoryRepository {
         productCategoryDAO = dao;
     }
 
-    public List<ProductCategoryEntity> getAll(){
+    public LiveData<List<ProductCategoryEntity>> getAll(){
         return productCategoryDAO.loadAll();
+    }
+
+    public void remove(ProductCategoryEntity category){
+        productCategoryDAO.remove(category);
     }
 }
