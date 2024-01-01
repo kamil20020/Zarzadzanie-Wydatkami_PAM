@@ -27,7 +27,9 @@ public class ProductsCategoriesViewHolder extends RecyclerView.ViewHolder {
 
         productCategoryTextView = itemView.findViewById(R.id.product_category);
         Button removeButton = itemView.findViewById(R.id.remove_category);
+
         removeButton.setOnClickListener(l -> {
+
             int index = getAdapterPosition();
 
             Executors.newSingleThreadExecutor().execute(() -> {

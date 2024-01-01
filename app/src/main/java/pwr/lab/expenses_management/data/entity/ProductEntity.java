@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@Entity(tableName = "products",
+@Entity(
+    tableName = "products",
     indices = {
         @Index(value = "name", unique = true)
     },
