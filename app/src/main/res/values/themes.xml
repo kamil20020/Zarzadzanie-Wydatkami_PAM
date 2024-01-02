@@ -8,5 +8,6 @@
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication">
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 </resources>

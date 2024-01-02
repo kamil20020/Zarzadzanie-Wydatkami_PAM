@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/navigation"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/blue"
-        app:title="Widok wydatku"
-        app:titleTextColor="@color/white"
-        app:contentInsetStart="20dp"
-        app:navigationIcon="@drawable/baseline_arrow_back_ios_24"
-        android:elevation="4dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue"
+            app:title="Widok wydatku"
+            app:titleTextColor="@color/white"
+            app:contentInsetStart="20dp"
+            app:navigationIcon="@drawable/baseline_arrow_back_ios_24"
+            android:elevation="4dp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
+</ScrollView>

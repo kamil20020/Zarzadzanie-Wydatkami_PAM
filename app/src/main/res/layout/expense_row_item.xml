@@ -3,7 +3,6 @@
     android:id="@+id/expense_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="horizontal"
     android:paddingLeft="40dp"
     android:paddingTop="18dp"
@@ -16,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -41,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
