@@ -1,6 +1,7 @@
 package pwr.lab.expenses_management.ui.expenses;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.concurrent.Executors;
 
+import lombok.Getter;
 import pwr.lab.expenses_management.R;
 import pwr.lab.expenses_management.view_model.ExpensesViewModel;
 
+@Getter
 public class ExpensesViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView expenseNameTextView;
@@ -42,6 +45,10 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder {
 
                 Looper.loop();
             });
+        });
+
+        itemView.setOnClickListener(l -> {
+            context.startActivity(new Intent(context, ExpenseActivity.class));
         });
     }
 }

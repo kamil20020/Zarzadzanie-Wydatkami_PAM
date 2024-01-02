@@ -13,7 +13,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ui.expenses.CreateExpenseActivity"
+            android:exported="true"/>
+        <activity
             android:name=".ui.expenses.ExpensesActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.expenses.ExpenseActivity"
             android:exported="true"/>
         <activity
             android:name=".ui.products.ProductsActivity"

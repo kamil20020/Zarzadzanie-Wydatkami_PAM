@@ -17,7 +17,7 @@ import pwr.lab.expenses_management.view_model.ProductsCategoriesViewModel;
 
 public class ProductsCategoriesAdapter extends RecyclerView.Adapter<ProductsCategoriesViewHolder> {
 
-    private List<ProductCategoryEntity> productCategories = new ArrayList<>();
+    private final List<ProductCategoryEntity> productCategories = new ArrayList<>();
     private final ProductsCategoriesViewModel viewModel;
 
     public ProductsCategoriesAdapter(ProductsCategoriesViewModel viewModel){

@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.concurrent.Executors;
 
+import lombok.Getter;
 import pwr.lab.expenses_management.R;
 import pwr.lab.expenses_management.view_model.ProductsCategoriesViewModel;
 
+@Getter
 public class ProductsCategoriesViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView productCategoryTextView;
@@ -42,9 +44,5 @@ public class ProductsCategoriesViewHolder extends RecyclerView.ViewHolder {
                 Looper.loop();
             });
         });
-    }
-
-    public TextView getProductCategoryTextView(){
-        return productCategoryTextView;
     }
 }
