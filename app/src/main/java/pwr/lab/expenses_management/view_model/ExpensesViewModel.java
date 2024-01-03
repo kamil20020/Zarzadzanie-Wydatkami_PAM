@@ -33,6 +33,14 @@ public class ExpensesViewModel extends AndroidViewModel {
         return detailedExpenses;
     }
 
+    public Integer getId(int index){
+
+        DetailedExpense detailedExpense = detailedExpenses.getValue().get(index);
+        ExpenseEntity expense = detailedExpense.getExpenseEntity();
+
+        return expense.getExpenseId();
+    }
+
     public void delete(int index){
         DetailedExpense detailedExpenseToRemove = detailedExpenses.getValue().get(index);
         ExpenseEntity expenseToRemove = detailedExpenseToRemove.getExpenseEntity();

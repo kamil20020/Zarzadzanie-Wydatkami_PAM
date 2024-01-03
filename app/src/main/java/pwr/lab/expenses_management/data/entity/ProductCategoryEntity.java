@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 public class ProductCategoryEntity {
 
     @PrimaryKey(autoGenerate = true)
-    @NotNull
     @ColumnInfo(name = "product_category_id")
     public Integer productId;
     @NotNull

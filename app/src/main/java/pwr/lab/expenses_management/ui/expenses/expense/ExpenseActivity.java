@@ -1,4 +1,4 @@
-package pwr.lab.expenses_management.ui.expenses;
+package pwr.lab.expenses_management.ui.expenses.expense;
 
 import android.os.Bundle;
 

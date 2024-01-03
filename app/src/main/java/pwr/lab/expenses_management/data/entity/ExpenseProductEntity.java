@@ -38,7 +38,6 @@ import lombok.NoArgsConstructor;
 public class ExpenseProductEntity {
 
     @PrimaryKey(autoGenerate = true)
-    @NotNull
     @ColumnInfo(name = "expense_product_id")
     public Integer expenseProductId;
 

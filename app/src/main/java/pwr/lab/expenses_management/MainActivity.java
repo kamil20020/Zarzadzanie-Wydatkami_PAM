@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.util.Locale;
+
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.ui.expenses.ExpensesActivity;
 import pwr.lab.expenses_management.ui.product_categories.ProductsCategoriesActivity;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Locale.setDefault(new Locale("pl", "PL"));
 
         AppDatabase.getDatabase(this);
 

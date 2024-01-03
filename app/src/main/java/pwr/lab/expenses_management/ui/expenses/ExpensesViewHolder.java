@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 
 import lombok.Getter;
 import pwr.lab.expenses_management.R;
+import pwr.lab.expenses_management.ui.expenses.expense.ExpenseActivity;
 import pwr.lab.expenses_management.view_model.ExpensesViewModel;
 
 @Getter
@@ -48,6 +49,12 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder {
         });
 
         itemView.setOnClickListener(l -> {
+
+            int index = getAdapterPosition();
+
+            Intent intent = new Intent(context, ExpenseActivity.class);
+            intent.putExtra("expense_id", viewModel.getId(index));
+
             context.startActivity(new Intent(context, ExpenseActivity.class));
         });
     }

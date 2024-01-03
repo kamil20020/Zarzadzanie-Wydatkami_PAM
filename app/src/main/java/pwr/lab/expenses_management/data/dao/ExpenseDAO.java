@@ -17,6 +17,9 @@ public interface ExpenseDAO {
     @Query("SELECT * FROM expenses")
     LiveData<List<DetailedExpense>> getAllDetailed();
 
+    @Query("SELECT EXISTS(SELECT * FROM expenses WHERE title = :name)")
+    boolean existsByName(String name);
+
     @Insert
     void insert(ExpenseEntity expenseEntity);
 
@@ -25,4 +28,5 @@ public interface ExpenseDAO {
 
     @Delete
     void delete(ExpenseEntity expenseEntity);
+
 }

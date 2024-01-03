@@ -11,10 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import pwr.lab.expenses_management.MainActivity;
 import pwr.lab.expenses_management.R;
+import pwr.lab.expenses_management.ui.expenses.expense.CreateExpenseActivity;
 import pwr.lab.expenses_management.view_model.ExpensesViewModel;
-import pwr.lab.expenses_management.view_model.ProductsCategoriesViewModel;
 
 public class ExpensesActivity extends AppCompatActivity {
 
