@@ -33,6 +33,7 @@ dependencies {
     val roomVersion = "2.6.1"
     val lombokVersion = "1.18.30"
     val lifecycleVersion = "2.6.2"
+    val cameraxVersion = "1.3.1"
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -49,4 +50,8 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata:$lifecycleVersion")
+
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
 }
