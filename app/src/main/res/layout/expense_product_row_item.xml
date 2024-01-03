@@ -3,41 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="18dp"
-    android:paddingBottom="18dp">
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:background="@drawable/border">
 
-    <TextView
+    <EditText
         android:id="@+id/expense_product_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:paddingLeft="8dp"
         android:layout_weight="2"
-        android:gravity="center_vertical"
-        android:textSize="20dp" />
+        android:background="@null"
+        android:hint="..."
+        android:gravity="center"
+        android:inputType="text" />
 
-    <TextView
+    <EditText
         android:id="@+id/expense_product_count"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:paddingLeft="8dp"
         android:layout_weight="2"
-        android:gravity="center_vertical"
-        android:textSize="20dp" />
+        android:background="@null"
+        android:hint="..."
+        android:gravity="center"
+        android:inputType="numberSigned" />
 
-    <TextView
+    <EditText
         android:id="@+id/expense_product_price"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:paddingLeft="8dp"
         android:layout_weight="2"
-        android:gravity="center_vertical"
-        android:textSize="20dp" />
+        android:background="@null"
+        android:hint="..."
+        android:gravity="center"
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/remove_expense_product"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:layout_weight="1"
+        android:layout_marginRight="1dp"
+        android:visibility="gone"
         android:backgroundTint="@color/white"
-        android:gravity="center_vertical"
-        android:layout_marginRight="2dp"
-        android:drawableLeft="@android:drawable/ic_delete" />
+        android:paddingLeft="8dp"
+        android:drawableRight="@android:drawable/ic_delete" />
 
 </LinearLayout>

@@ -18,6 +18,7 @@ import lombok.Data;
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ExpenseDAO;
 import pwr.lab.expenses_management.data.entity.ExpenseEntity;
+import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
 import pwr.lab.expenses_management.data.repository.ExpenseRepository;
 
 public class CreateExpenseViewModel extends AndroidViewModel {
@@ -37,6 +38,7 @@ public class CreateExpenseViewModel extends AndroidViewModel {
 
     private Form form = new Form();
     private MutableLiveData<List<Integer>> formErrors = new MutableLiveData<>(new ArrayList<>());
+    private List<ExpenseProductEntity> expenseProducts = new ArrayList<>();
 
     private final ExpenseRepository expenseRepository;
 
@@ -94,5 +96,9 @@ public class CreateExpenseViewModel extends AndroidViewModel {
 
     public LiveData<List<Integer>> getFormErrors(){
         return formErrors;
+    }
+
+    public List<ExpenseProductEntity> getExpenseProducts(){
+        return expenseProducts;
     }
 }
