@@ -17,7 +17,7 @@ public class ExpenseRepository {
     }
 
     public boolean existsByName(String name){return expenseDAO.existsByName(name);}
-    public void create(ExpenseEntity expenseEntity){expenseDAO.insert(expenseEntity);}
+    public long create(ExpenseEntity expenseEntity){ return expenseDAO.insert(expenseEntity);}
 
     public LiveData<List<DetailedExpense>> getAllDetailed(){
         return expenseDAO.getAllDetailed();

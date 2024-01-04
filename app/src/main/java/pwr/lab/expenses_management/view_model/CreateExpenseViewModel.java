@@ -27,13 +27,11 @@ public class CreateExpenseViewModel extends AndroidViewModel {
     public static class Form {
         private String title = "";
         private LocalDate date = LocalDate.now();
-        private BigDecimal totalPrice = BigDecimal.ZERO;
     }
 
     public enum FormErrors {
         NAME,
         DATE,
-        TOTAL_PRICE
     }
 
     private Form form = new Form();
@@ -63,19 +61,12 @@ public class CreateExpenseViewModel extends AndroidViewModel {
             formErrorsData.add(FormErrors.DATE.ordinal());
         }
 
-        if(form.getTotalPrice() == null){
-            formErrorsData.add(FormErrors.TOTAL_PRICE.ordinal());
-        }
-
         formErrors.setValue(formErrorsData);
 
         return formErrorsData.isEmpty();
     }
 
-    public void createExpense() throws IllegalArgumentException{
-
-        BigDecimal multiplier = BigDecimal.valueOf(100);
-        Long totalPrice = form.getTotalPrice().multiply(multiplier).longValue();
+    public long createExpense() throws IllegalArgumentException{
 
         if(expenseRepository.existsByName(form.getTitle())){
             throw new IllegalArgumentException("Istnieje już wydatek o takiej nazwie");
@@ -84,10 +75,10 @@ public class CreateExpenseViewModel extends AndroidViewModel {
         ExpenseEntity expenseEntity = ExpenseEntity.builder()
             .title(form.getTitle())
             .date(form.getDate().toString())
-            .totalPrice(totalPrice)
+            .totalPrice(0L)
             .build();
 
-        expenseRepository.create(expenseEntity);
+        return expenseRepository.create(expenseEntity);
     }
 
     public Form getForm(){
@@ -96,9 +87,5 @@ public class CreateExpenseViewModel extends AndroidViewModel {
 
     public LiveData<List<Integer>> getFormErrors(){
         return formErrors;
-    }
-
-    public List<ExpenseProductEntity> getExpenseProducts(){
-        return expenseProducts;
     }
 }

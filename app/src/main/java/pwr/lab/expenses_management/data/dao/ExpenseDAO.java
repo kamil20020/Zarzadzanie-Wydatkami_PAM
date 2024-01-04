@@ -21,12 +21,11 @@ public interface ExpenseDAO {
     boolean existsByName(String name);
 
     @Insert
-    void insert(ExpenseEntity expenseEntity);
+    long insert(ExpenseEntity expenseEntity);
 
     @Update
     void update(ExpenseEntity expenseEntity);
 
     @Delete
     void delete(ExpenseEntity expenseEntity);
-
 }

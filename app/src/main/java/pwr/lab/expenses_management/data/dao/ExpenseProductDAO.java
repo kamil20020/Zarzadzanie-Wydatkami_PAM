@@ -15,7 +15,7 @@ import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
 public interface ExpenseProductDAO {
 
     @Insert
-    void insert(ExpenseProductEntity expenseProductEntity);
+    void insert(List<ExpenseProductEntity> expenseProducts);
 
     @Update
     void update(ExpenseProductEntity expenseProductEntity);

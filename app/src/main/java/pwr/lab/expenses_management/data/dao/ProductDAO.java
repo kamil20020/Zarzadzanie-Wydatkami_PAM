@@ -17,8 +17,11 @@ public interface ProductDAO {
     @Query("SELECT * FROM products")
     LiveData<List<ProductEntity>> loadAll();
 
+    @Query("SELECT * FROM products WHERE LOWER(name) = LOWER(:name)")
+    ProductEntity getByName(String name);
+
     @Insert
-    void insert(ProductEntity productEntity);
+    long insert(ProductEntity productEntity);
 
     @Update
     void update(ProductEntity productEntity);

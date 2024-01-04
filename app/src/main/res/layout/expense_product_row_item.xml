@@ -5,6 +5,8 @@
     android:orientation="horizontal"
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
     android:background="@drawable/border">
 
     <EditText
@@ -44,12 +46,10 @@
         android:id="@+id/remove_expense_product"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:layout_weight="1"
-        android:layout_marginRight="1dp"
-        android:visibility="gone"
         android:backgroundTint="@color/white"
-        android:paddingLeft="8dp"
-        android:drawableRight="@android:drawable/ic_delete" />
+        android:drawableLeft="@android:drawable/ic_delete"
+        android:gravity="center"
+        android:paddingLeft="12dp" />
 
 </LinearLayout>

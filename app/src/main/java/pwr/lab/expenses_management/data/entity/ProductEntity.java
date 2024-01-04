@@ -36,7 +36,6 @@ public class ProductEntity {
     @ColumnInfo(name = "product_id")
     public Integer productId;
 
-    @NotNull
     @ColumnInfo(name = "category_id", index = true)
     public Integer categoryId;
 

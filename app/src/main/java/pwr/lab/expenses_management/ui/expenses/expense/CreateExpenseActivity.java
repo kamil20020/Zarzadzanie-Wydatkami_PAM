@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -62,18 +63,14 @@ public class CreateExpenseActivity extends AppCompatActivity {
         expenseDateInput = findViewById(R.id.expense_date);
         totalCostView = findViewById(R.id.total_cost);
         Button saveButton = findViewById(R.id.save);
+        Button createEmptyExpenseProduct = findViewById(R.id.create_empty_expense_product);
         RecyclerView expenseProductsRecyclerView = findViewById(R.id.expense_products_recycler_view);
 
         createExpenseForm = createExpenseViewModel.getForm();
 
         expenseNameInput.setText(createExpenseForm.getTitle());
         expenseDateInput.setText(createExpenseForm.getDate().toString());
-        totalCostView.setText("Razem: " + createExpenseForm.getTotalPrice().toString() + " zł");
-
-        expenseProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
-        expenseProductsAdapter = new CreateExpenseProductsAdapter(createExpenseProductsViewModel);
-        expenseProductsRecyclerView.setAdapter(expenseProductsAdapter);
+        initTotalPrice();
 
         expenseNameInput.addTextChangedListener(new TextChangedListener<>(expenseNameInput) {
             @Override
@@ -88,11 +85,29 @@ public class CreateExpenseActivity extends AppCompatActivity {
         loadExpenseFormErrors();
 
         loadReceiptButton.setOnClickListener(l -> handleLoadPhoto());
-        saveButton.setOnClickListener(l -> createExpense());
+        saveButton.setOnClickListener(l -> save());
+        createEmptyExpenseProduct.setOnClickListener(l -> createEmptyExpenseProduct());
+
+        expenseProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        expenseProductsAdapter = new CreateExpenseProductsAdapter(createExpenseProductsViewModel);
+        expenseProductsRecyclerView.setAdapter(expenseProductsAdapter);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             finish();
+        });
+    }
+
+    private void createEmptyExpenseProduct(){
+        createExpenseProductsViewModel.createEmptyForm();
+        expenseProductsAdapter.notifyLastAdded();
+    }
+
+    private void initTotalPrice(){
+        createExpenseProductsViewModel.getTotalPrice().observe(this, totalPrice -> {
+            System.out.println(totalPrice);
+            totalCostView.setText("Razem: " + totalPrice.toString() + " zł");
         });
     }
 
@@ -150,7 +165,7 @@ public class CreateExpenseActivity extends AppCompatActivity {
         datePicker.show();
     }
 
-    private void createExpense(){
+    private void save(){
 
         if(!createExpenseViewModel.validateForm()){
             return;
@@ -161,7 +176,9 @@ public class CreateExpenseActivity extends AppCompatActivity {
             Looper.prepare();
 
             try {
-                createExpenseViewModel.createExpense();
+                createExpenseProductsViewModel.validate();
+                long expenseId = createExpenseViewModel.createExpense();
+                createExpenseProductsViewModel.create((int) expenseId);
                 finish();
             } catch (IllegalArgumentException e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

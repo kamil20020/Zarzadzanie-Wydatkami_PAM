@@ -19,8 +19,12 @@ public class ProductRepository {
         return productDAO.loadAll();
     }
 
-    public void create(ProductEntity productEntity){
-        productDAO.insert(productEntity);
+    public ProductEntity getByName(String name){
+        return productDAO.getByName(name);
+    }
+
+    public long create(ProductEntity productEntity){
+        return productDAO.insert(productEntity);
     }
 
     public void update(ProductEntity productEntity){

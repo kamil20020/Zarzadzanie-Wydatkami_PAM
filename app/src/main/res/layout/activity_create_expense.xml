@@ -93,7 +93,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="Nazwa"
                     android:textStyle="bold"
@@ -102,7 +102,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="Liczba"
                     android:textStyle="bold"
@@ -112,7 +112,7 @@
                     android:id="@+id/expense_product_price"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="Cena"
                     android:textStyle="bold"
@@ -134,6 +134,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
                 android:layout_marginTop="2dp" />
+
+            <Button
+                android:id="@+id/create_empty_expense_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Dodaj" />
 
         </LinearLayout>
 
