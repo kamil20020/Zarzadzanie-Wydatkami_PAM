@@ -24,6 +24,124 @@
             android:elevation="4dp"
             tools:ignore="MissingConstraints" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/baseline_receipt_24" />
+
+        <TextView
+            android:id="@+id/expense_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nazwa:"
+            android:textSize="22dp"
+            android:layout_marginTop="26dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expense_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data:"
+            android:textSize="22dp"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Produkty"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/expense_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/expense_products_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Nazwa"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Liczba"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/expense_product_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Cena"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expense_products_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/total_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="Razem: 0 zł"
+            android:textSize="26dp" />
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="invisible"
+            android:enabled="false"
+            android:text="Edytuj" />
+
     </LinearLayout>
 
 </ScrollView>

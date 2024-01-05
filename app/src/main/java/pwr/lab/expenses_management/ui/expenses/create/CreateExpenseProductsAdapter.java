@@ -1,4 +1,4 @@
-package pwr.lab.expenses_management.ui.expenses.expense;
+package pwr.lab.expenses_management.ui.expenses.create;
 
 import android.content.Context;
 import android.text.Editable;
@@ -16,9 +16,10 @@ import java.math.BigDecimal;
 
 import pwr.lab.expenses_management.R;
 import pwr.lab.expenses_management.ui.TextChangedListener;
+import pwr.lab.expenses_management.ui.expenses.view.ExpenseProductsViewHolder;
 import pwr.lab.expenses_management.view_model.CreateExpenseProductsViewModel;
 
-public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExpenseProductsViewHolder> {
+public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<ExpenseProductsViewHolder> {
 
     private final CreateExpenseProductsViewModel viewModel;
 
@@ -39,7 +40,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
 
     @NonNull
     @Override
-    public CreateExpenseProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExpenseProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.expense_product_row_item, parent, false);
@@ -49,11 +50,11 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         errorColor = ContextCompat.getColor(context, R.color.red);
         normalColor = ContextCompat.getColor(context, R.color.black);
 
-        return new CreateExpenseProductsViewHolder(view);
+        return new ExpenseProductsViewHolder(view, false);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CreateExpenseProductsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExpenseProductsViewHolder holder, int position) {
 
         handleHolderNameInput(holder, position);
         handleHolderCountInput(holder, position);
@@ -61,7 +62,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         handleRemoveItem(holder);
     }
 
-    private void handleHolderNameInput(CreateExpenseProductsViewHolder holder, int position){
+    private void handleHolderNameInput(ExpenseProductsViewHolder holder, int position){
 
         EditText holderNameInput = holder.getNameInput();
 
@@ -95,7 +96,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         });
     }
 
-    private void handleHolderCountInput(CreateExpenseProductsViewHolder holder, int position){
+    private void handleHolderCountInput(ExpenseProductsViewHolder holder, int position){
 
         EditText holderCountInput = holder.getCountInput();
 
@@ -134,7 +135,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         });
     }
 
-    private void handleHolderPriceInput(CreateExpenseProductsViewHolder holder, int position) {
+    private void handleHolderPriceInput(ExpenseProductsViewHolder holder, int position) {
 
         EditText holderPriceInput = holder.getPriceInput();
 
@@ -174,7 +175,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         });
     }
 
-    private void handleRemoveItem(CreateExpenseProductsViewHolder holder) {
+    private void handleRemoveItem(ExpenseProductsViewHolder holder) {
 
         Button removeButton = holder.getDeleteButton();
         removeButton.setOnClickListener(l -> {

@@ -21,7 +21,7 @@ public class ExpensesViewModel extends AndroidViewModel {
 
     private final ExpenseRepository expenseRepository;
 
-    private final LiveData<List<DetailedExpense>> detailedExpenses;
+    private final LiveData<List<ExpenseEntity>> expenses;
 
     public ExpensesViewModel(@NonNull Application application) {
         super(application);
@@ -30,37 +30,35 @@ public class ExpensesViewModel extends AndroidViewModel {
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         this.expenseRepository = new ExpenseRepository(expenseDAO);
 
-        detailedExpenses = expenseRepository.getAllDetailed();
+        expenses = expenseRepository.getAll();
     }
 
-    public LiveData<List<DetailedExpense>> getAllDetailedExpenses(){
-        return detailedExpenses;
+    public LiveData<List<ExpenseEntity>> getAll(){
+        return expenses;
     }
 
-    public DetailedExpense get(int index){
-        return detailedExpenses.getValue().get(index);
+    public ExpenseEntity get(int index){
+        return expenses.getValue().get(index);
     }
 
     public int size(){
 
-        if(detailedExpenses.getValue() == null){
+        if(expenses.getValue() == null){
             return 0;
         }
 
-        return detailedExpenses.getValue().size();
+        return expenses.getValue().size();
     }
 
     public Integer getId(int index){
 
-        DetailedExpense detailedExpense = detailedExpenses.getValue().get(index);
-        ExpenseEntity expense = detailedExpense.getExpenseEntity();
+        ExpenseEntity expense = expenses.getValue().get(index);
 
         return expense.getExpenseId();
     }
 
     public void delete(int index){
-        DetailedExpense detailedExpenseToRemove = detailedExpenses.getValue().get(index);
-        ExpenseEntity expenseToRemove = detailedExpenseToRemove.getExpenseEntity();
+        ExpenseEntity expenseToRemove = expenses.getValue().get(index);
         expenseRepository.remove(expenseToRemove);
     }
 }

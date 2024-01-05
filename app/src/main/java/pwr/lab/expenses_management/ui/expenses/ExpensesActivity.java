@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pwr.lab.expenses_management.R;
-import pwr.lab.expenses_management.ui.expenses.expense.CreateExpenseActivity;
+import pwr.lab.expenses_management.ui.expenses.create.CreateExpenseActivity;
 import pwr.lab.expenses_management.view_model.ExpensesViewModel;
 
 public class ExpensesActivity extends AppCompatActivity {
@@ -39,9 +39,8 @@ public class ExpensesActivity extends AppCompatActivity {
             startActivity(new Intent(ExpensesActivity.this, CreateExpenseActivity.class));
         });
 
-        viewModel.getAllDetailedExpenses().observe(this, detailedExpenses -> {
+        viewModel.getAll().observe(this, expenses -> {
             adapter.update();
-            System.out.println(detailedExpenses);
         });
 
         toolbar.setNavigationOnClickListener(v -> {

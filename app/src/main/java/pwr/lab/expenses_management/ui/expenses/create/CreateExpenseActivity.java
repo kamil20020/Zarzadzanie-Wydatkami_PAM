@@ -1,4 +1,4 @@
-package pwr.lab.expenses_management.ui.expenses.expense;
+package pwr.lab.expenses_management.ui.expenses.create;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

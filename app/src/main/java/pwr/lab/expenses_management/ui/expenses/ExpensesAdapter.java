@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 import pwr.lab.expenses_management.R;
 import pwr.lab.expenses_management.data.entity.DetailedExpense;
 import pwr.lab.expenses_management.data.entity.ExpenseEntity;
-import pwr.lab.expenses_management.ui.expenses.expense.ExpenseActivity;
+import pwr.lab.expenses_management.ui.expenses.view.ExpenseActivity;
 import pwr.lab.expenses_management.view_model.ExpensesViewModel;
 
 public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesViewHolder> {
@@ -47,8 +47,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ExpensesViewHolder holder, int position) {
 
-        DetailedExpense currentDetailedExpense = viewModel.get(position);
-        ExpenseEntity currentExpense = currentDetailedExpense.getExpenseEntity();
+        ExpenseEntity currentExpense = viewModel.get(position);
         holder.getExpenseNameTextView().setText(currentExpense.getTitle());
         holder.getExpenseDateTextView().setText(currentExpense.getDate());
 
@@ -61,9 +60,9 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesViewHolder> {
             int index = holder.getAdapterPosition();
 
             Intent intent = new Intent(context, ExpenseActivity.class);
-            intent.putExtra("expense_id", viewModel.getId(index));
+            intent.putExtra("expense_id", viewModel.getId(index).toString());
 
-            context.startActivity(new Intent(context, ExpenseActivity.class));
+            context.startActivity(intent);
         });
 
         holder.getRemoveButton().setOnClickListener(l -> {
