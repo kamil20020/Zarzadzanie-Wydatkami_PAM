@@ -10,12 +10,16 @@ import androidx.room.Update;
 import java.util.List;
 
 import pwr.lab.expenses_management.data.entity.ProductEntity;
+import pwr.lab.expenses_management.data.relations.DetailedProduct;
 
 @Dao
 public interface ProductDAO {
 
     @Query("SELECT * FROM products")
     LiveData<List<ProductEntity>> loadAll();
+
+    @Query("SELECT * FROM products")
+    LiveData<List<DetailedProduct>> loadAllDetailed();
 
     @Query("SELECT * FROM products WHERE LOWER(name) = LOWER(:name)")
     ProductEntity getByName(String name);

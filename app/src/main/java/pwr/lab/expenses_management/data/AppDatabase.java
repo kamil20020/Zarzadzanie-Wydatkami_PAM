@@ -71,7 +71,25 @@ public abstract class AppDatabase extends RoomDatabase {
                                 ('Sport i wypoczynek');
                         """;
 
+                        String loadeExpensesSQL = """
+                            INSERT INTO EXPENSES (date, title, total_price)
+                            VALUES
+                                ('23.09.2023', 'McDonald - Drwal', 25000),
+                                ('12.06.2023', 'McDonald - BigMac', 18000),
+                                ('31.12.2023', 'Pizza Hut - Sylwester', 50000);
+                        """;
+
                         String loadProductsSQL = """
+                            INSERT INTO PRODUCTS (category_id, name)
+                            VALUES
+                                (2, 'Jabłko'),
+                                (2, 'Olej'),
+                                (3, 'Szafka'),
+                                (1, "Buty"),
+                                (1, "Koszula")
+                        """;
+
+                        String loadExpenseProductsSQL = """
                             INSERT INTO PRODUCTS_CATEGORIES (name)
                             VALUES
                                 ('Moda'),
@@ -82,17 +100,9 @@ public abstract class AppDatabase extends RoomDatabase {
                                 ('Sport i wypoczynek');
                         """;
 
-                        String loadeExpensesSQL = """
-                            INSERT INTO EXPENSES (date, title, total_price)
-                            VALUES
-                                ('23.09.2023', 'McDonald - Drwal', 25000),
-                                ('12.06.2023', 'McDonald - BigMac', 18000),
-                                ('31.12.2023', 'Pizza Hut - Sylwester', 50000);
-                        """;
-
                         db.execSQL(loadCategoriesSQL);
                         //db.execSQL(loadProductsSQL);
-                        db.execSQL(loadeExpensesSQL);
+                        //db.execSQL(loadeExpensesSQL);
 
                         db.setTransactionSuccessful();
                         db.endTransaction();

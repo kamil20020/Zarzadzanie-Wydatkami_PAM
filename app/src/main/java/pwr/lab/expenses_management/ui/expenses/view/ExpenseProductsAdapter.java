@@ -1,18 +1,17 @@
 package pwr.lab.expenses_management.ui.expenses.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
+
 import pwr.lab.expenses_management.R;
-import pwr.lab.expenses_management.data.entity.DetailedExpenseProduct;
+import pwr.lab.expenses_management.data.relations.DetailedExpenseProduct;
 import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
 import pwr.lab.expenses_management.data.entity.ProductEntity;
 import pwr.lab.expenses_management.view_model.ExpenseViewModel;
@@ -50,9 +49,16 @@ public class ExpenseProductsAdapter extends RecyclerView.Adapter<ExpenseProducts
         ExpenseProductEntity expenseProduct = detailedExpenseProduct.getExpenseProductEntity();
         ProductEntity product = detailedExpenseProduct.getProductEntity();
 
+        Long rawPrice = expenseProduct.getPrice();
+        BigDecimal nonConvertedTotalPrice = BigDecimal.valueOf(rawPrice);
+        BigDecimal divider = BigDecimal.valueOf(100);
+        BigDecimal price = nonConvertedTotalPrice.divide(divider);
+
+        String formattedPrice = String.format("%.2f zł", price);
+
         holderNameView.setText(product.getName());
         holderCountView.setText(expenseProduct.getCount().toString());
-        holderPriceView.setText(expenseProduct.getPrice().toString());
+        holderPriceView.setText(formattedPrice);
     }
 
     @Override

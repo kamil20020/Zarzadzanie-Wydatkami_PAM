@@ -58,9 +58,11 @@ public class ExpenseActivity extends AppCompatActivity {
             BigDecimal divider = BigDecimal.valueOf(100);
             BigDecimal totalPrice = nonConvertedTotalPrice.divide(divider);
 
+            String formattedTotalPrice = String.format("%.2f", totalPrice);
+
             expenseNameView.setText("Nazwa: " + expense.getTitle());
             expenseDateView.setText("Data: " + expense.getDate());
-            expenseTotalPriceView.setText("Razem: " + totalPrice.toString() + " zł");
+            expenseTotalPriceView.setText("Razem: " + formattedTotalPrice + " zł");
 
             adapter.update();
         });

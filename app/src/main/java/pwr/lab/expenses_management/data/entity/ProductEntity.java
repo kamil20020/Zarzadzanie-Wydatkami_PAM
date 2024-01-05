@@ -24,7 +24,8 @@ import lombok.NoArgsConstructor;
         @ForeignKey(
             entity = ProductCategoryEntity.class,
             parentColumns = "product_category_id",
-            childColumns = "category_id"
+            childColumns = "category_id",
+            onDelete = ForeignKey.SET_NULL
         )
     }
 )

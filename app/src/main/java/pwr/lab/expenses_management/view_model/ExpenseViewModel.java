@@ -10,11 +10,8 @@ import java.util.List;
 
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ExpenseDAO;
-import pwr.lab.expenses_management.data.entity.DetailedExpense;
-import pwr.lab.expenses_management.data.entity.DetailedExpenseProduct;
-import pwr.lab.expenses_management.data.entity.ExpenseEntity;
-import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
-import pwr.lab.expenses_management.data.entity.StronglyDetailedExpense;
+import pwr.lab.expenses_management.data.relations.DetailedExpenseProduct;
+import pwr.lab.expenses_management.data.relations.StronglyDetailedExpense;
 import pwr.lab.expenses_management.data.repository.ExpenseRepository;
 
 public class ExpenseViewModel extends AndroidViewModel {

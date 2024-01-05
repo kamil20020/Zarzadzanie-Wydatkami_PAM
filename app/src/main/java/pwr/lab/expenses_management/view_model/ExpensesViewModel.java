@@ -5,16 +5,12 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ExpenseDAO;
 import pwr.lab.expenses_management.data.entity.ExpenseEntity;
-import pwr.lab.expenses_management.data.entity.DetailedExpense;
 import pwr.lab.expenses_management.data.repository.ExpenseRepository;
 
 public class ExpensesViewModel extends AndroidViewModel {

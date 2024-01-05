@@ -105,7 +105,8 @@ public class CreateExpenseActivity extends AppCompatActivity {
 
     private void initTotalPrice(){
         createExpenseProductsViewModel.getTotalPrice().observe(this, totalPrice -> {
-            totalCostView.setText("Razem: " + totalPrice.toString() + " zł");
+            String formattedTotalPrice = String.format("%.2f", totalPrice);
+            totalCostView.setText("Razem: " + formattedTotalPrice + " zł");
         });
     }
 

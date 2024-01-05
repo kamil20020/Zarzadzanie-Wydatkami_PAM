@@ -19,6 +19,10 @@ public class ProductCategoryRepository {
         return productCategoryDAO.loadAll();
     }
 
+    public List<ProductCategoryEntity> getAllStatic(){
+        return productCategoryDAO.loadAllStatic();
+    }
+
     public void remove(ProductCategoryEntity category){
         productCategoryDAO.remove(category);
     }

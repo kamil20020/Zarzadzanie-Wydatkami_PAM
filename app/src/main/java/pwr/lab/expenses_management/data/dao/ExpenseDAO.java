@@ -10,8 +10,8 @@ import androidx.room.Update;
 import java.util.List;
 
 import pwr.lab.expenses_management.data.entity.ExpenseEntity;
-import pwr.lab.expenses_management.data.entity.DetailedExpense;
-import pwr.lab.expenses_management.data.entity.StronglyDetailedExpense;
+import pwr.lab.expenses_management.data.relations.DetailedExpense;
+import pwr.lab.expenses_management.data.relations.StronglyDetailedExpense;
 
 @Dao
 public interface ExpenseDAO {

@@ -16,6 +16,9 @@ public interface ProductCategoryDAO {
     @Query("SELECT * FROM products_categories")
     LiveData<List<ProductCategoryEntity>> loadAll();
 
+    @Query("SELECT * FROM products_categories")
+    List<ProductCategoryEntity> loadAllStatic();
+
     @Insert
     void insert(ProductCategoryEntity productCategoryEntity);
 

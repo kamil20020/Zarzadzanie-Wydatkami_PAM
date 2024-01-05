@@ -1,4 +1,4 @@
-package pwr.lab.expenses_management.data.entity;
+package pwr.lab.expenses_management.data.relations;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
@@ -6,6 +6,9 @@ import androidx.room.Relation;
 import java.util.List;
 
 import lombok.Data;
+import pwr.lab.expenses_management.data.entity.ExpenseEntity;
+import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
+import pwr.lab.expenses_management.data.relations.DetailedExpenseProduct;
 
 @Data
 public class StronglyDetailedExpense {

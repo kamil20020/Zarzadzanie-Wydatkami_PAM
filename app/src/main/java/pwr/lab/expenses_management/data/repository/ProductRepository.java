@@ -6,6 +6,7 @@ import java.util.List;
 
 import pwr.lab.expenses_management.data.dao.ProductDAO;
 import pwr.lab.expenses_management.data.entity.ProductEntity;
+import pwr.lab.expenses_management.data.relations.DetailedProduct;
 
 public class ProductRepository {
 
@@ -17,6 +18,10 @@ public class ProductRepository {
 
     public LiveData<List<ProductEntity>> getAll(){
         return productDAO.loadAll();
+    }
+
+    public LiveData<List<DetailedProduct>> getAllDetailed(){
+        return productDAO.loadAllDetailed();
     }
 
     public ProductEntity getByName(String name){

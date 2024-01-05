@@ -26,7 +26,7 @@ public class ProductCategoryEntity {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_category_id")
-    public Integer productId;
+    public Integer categoryId;
     @NotNull
     public String name;
 }

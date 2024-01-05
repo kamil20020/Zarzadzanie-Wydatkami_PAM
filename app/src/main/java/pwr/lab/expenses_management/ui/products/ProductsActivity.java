@@ -24,14 +24,14 @@ public class ProductsActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.products_recycler_view);
         Toolbar toolbar = findViewById(R.id.navigation);
 
-        ProductsAdapter adapter = new ProductsAdapter();
+        ProductsAdapter adapter = new ProductsAdapter(viewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         setSupportActionBar(toolbar);
 
-        viewModel.getAllProducts().observe(this, products -> {
-            adapter.setProducts(products);
+        viewModel.getAll().observe(this, products -> {
+            adapter.update();
         });
 
         toolbar.setNavigationOnClickListener(v -> {
