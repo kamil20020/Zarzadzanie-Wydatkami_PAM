@@ -13,11 +13,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import pwr.lab.expenses_management.R;
-import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
 import pwr.lab.expenses_management.ui.TextChangedListener;
 import pwr.lab.expenses_management.view_model.CreateExpenseProductsViewModel;
 
@@ -61,7 +58,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         handleHolderNameInput(holder, position);
         handleHolderCountInput(holder, position);
         handleHolderPriceInput(holder, position);
-        handleHolderRemove(holder);
+        handleRemoveItem(holder);
     }
 
     private void handleHolderNameInput(CreateExpenseProductsViewHolder holder, int position){
@@ -177,7 +174,7 @@ public class CreateExpenseProductsAdapter extends RecyclerView.Adapter<CreateExp
         });
     }
 
-    private void handleHolderRemove(CreateExpenseProductsViewHolder holder) {
+    private void handleRemoveItem(CreateExpenseProductsViewHolder holder) {
 
         Button removeButton = holder.getDeleteButton();
         removeButton.setOnClickListener(l -> {

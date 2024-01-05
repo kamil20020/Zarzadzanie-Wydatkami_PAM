@@ -17,7 +17,9 @@ public class ExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_expense);
 
         Toolbar toolbar = findViewById(R.id.navigation);
+
         setSupportActionBar(toolbar);
+
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });

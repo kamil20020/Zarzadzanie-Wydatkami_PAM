@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -52,12 +51,12 @@ public class CreateExpenseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        createExpenseViewModel = new ViewModelProvider(this).get(CreateExpenseViewModel.class);
         createExpenseProductsViewModel = new ViewModelProvider(this).get(CreateExpenseProductsViewModel.class);
+        createExpenseViewModel = new ViewModelProvider(this).get(CreateExpenseViewModel.class);
+        createExpenseViewModel.setCreateExpenseProductsViewModel(createExpenseProductsViewModel);
 
         setContentView(R.layout.activity_create_expense);
 
-        Toolbar toolbar = findViewById(R.id.navigation);
         loadReceiptButton = findViewById(R.id.load_photo);
         expenseNameInput = findViewById(R.id.expense_name);
         expenseDateInput = findViewById(R.id.expense_date);
@@ -65,12 +64,24 @@ public class CreateExpenseActivity extends AppCompatActivity {
         Button saveButton = findViewById(R.id.save);
         Button createEmptyExpenseProduct = findViewById(R.id.create_empty_expense_product);
         RecyclerView expenseProductsRecyclerView = findViewById(R.id.expense_products_recycler_view);
+        Toolbar toolbar = findViewById(R.id.navigation);
 
         createExpenseForm = createExpenseViewModel.getForm();
 
         expenseNameInput.setText(createExpenseForm.getTitle());
         expenseDateInput.setText(createExpenseForm.getDate().toString());
         initTotalPrice();
+
+        expenseProductsAdapter = new CreateExpenseProductsAdapter(createExpenseProductsViewModel);
+        expenseProductsRecyclerView.setAdapter(expenseProductsAdapter);
+        expenseProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        setSupportActionBar(toolbar);
+
+        expenseDateInput.setOnClickListener(l -> handleInputDate());
+        loadReceiptButton.setOnClickListener(l -> handleLoadPhoto());
+        saveButton.setOnClickListener(l -> save());
+        createEmptyExpenseProduct.setOnClickListener(l -> createEmptyExpenseProduct());
 
         expenseNameInput.addTextChangedListener(new TextChangedListener<>(expenseNameInput) {
             @Override
@@ -80,20 +91,8 @@ public class CreateExpenseActivity extends AppCompatActivity {
             }
         });
 
-        expenseDateInput.setOnClickListener(l -> handleInputDate());
-
         loadExpenseFormErrors();
 
-        loadReceiptButton.setOnClickListener(l -> handleLoadPhoto());
-        saveButton.setOnClickListener(l -> save());
-        createEmptyExpenseProduct.setOnClickListener(l -> createEmptyExpenseProduct());
-
-        expenseProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
-        expenseProductsAdapter = new CreateExpenseProductsAdapter(createExpenseProductsViewModel);
-        expenseProductsRecyclerView.setAdapter(expenseProductsAdapter);
-
-        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
@@ -106,7 +105,6 @@ public class CreateExpenseActivity extends AppCompatActivity {
 
     private void initTotalPrice(){
         createExpenseProductsViewModel.getTotalPrice().observe(this, totalPrice -> {
-            System.out.println(totalPrice);
             totalCostView.setText("Razem: " + totalPrice.toString() + " zł");
         });
     }
@@ -176,9 +174,7 @@ public class CreateExpenseActivity extends AppCompatActivity {
             Looper.prepare();
 
             try {
-                createExpenseProductsViewModel.validate();
-                long expenseId = createExpenseViewModel.createExpense();
-                createExpenseProductsViewModel.create((int) expenseId);
+                createExpenseViewModel.createExpense();
                 finish();
             } catch (IllegalArgumentException e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

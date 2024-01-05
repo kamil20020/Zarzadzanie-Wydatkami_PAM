@@ -5,8 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ExpenseDAO;
@@ -18,7 +21,7 @@ public class ExpensesViewModel extends AndroidViewModel {
 
     private final ExpenseRepository expenseRepository;
 
-    private LiveData<List<DetailedExpense>> detailedExpenses;
+    private final LiveData<List<DetailedExpense>> detailedExpenses;
 
     public ExpensesViewModel(@NonNull Application application) {
         super(application);
@@ -26,11 +29,25 @@ public class ExpensesViewModel extends AndroidViewModel {
         AppDatabase appDatabase = AppDatabase.getDatabase(application);
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         this.expenseRepository = new ExpenseRepository(expenseDAO);
+
         detailedExpenses = expenseRepository.getAllDetailed();
     }
 
     public LiveData<List<DetailedExpense>> getAllDetailedExpenses(){
         return detailedExpenses;
+    }
+
+    public DetailedExpense get(int index){
+        return detailedExpenses.getValue().get(index);
+    }
+
+    public int size(){
+
+        if(detailedExpenses.getValue() == null){
+            return 0;
+        }
+
+        return detailedExpenses.getValue().size();
     }
 
     public Integer getId(int index){

@@ -25,25 +25,27 @@ public class ExpensesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_expenses);
 
-        Toolbar toolbar = findViewById(R.id.navigation);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> {
-            finish();
-        });
-
         Button createExpenseButton = findViewById(R.id.create_expense);
+        RecyclerView recyclerView = findViewById(R.id.expenses_recycler_view);
+        Toolbar toolbar = findViewById(R.id.navigation);
+
+        ExpensesAdapter adapter = new ExpensesAdapter(viewModel);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        setSupportActionBar(toolbar);
+
         createExpenseButton.setOnClickListener(l -> {
             startActivity(new Intent(ExpensesActivity.this, CreateExpenseActivity.class));
         });
 
-        RecyclerView recyclerView = findViewById(R.id.expenses_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
-        ExpensesAdapter adapter = new ExpensesAdapter(viewModel);
-        recyclerView.setAdapter(adapter);
-
         viewModel.getAllDetailedExpenses().observe(this, detailedExpenses -> {
-            adapter.setExpenses(detailedExpenses);
+            adapter.update();
+            System.out.println(detailedExpenses);
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
         });
     }
 }

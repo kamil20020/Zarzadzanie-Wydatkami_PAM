@@ -10,17 +10,14 @@ import java.util.List;
 
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ProductCategoryDAO;
-import pwr.lab.expenses_management.data.dao.ProductDAO;
 import pwr.lab.expenses_management.data.entity.ProductCategoryEntity;
-import pwr.lab.expenses_management.data.entity.ProductEntity;
 import pwr.lab.expenses_management.data.repository.ProductCategoryRepository;
-import pwr.lab.expenses_management.data.repository.ProductRepository;
 
 public class ProductsCategoriesViewModel extends AndroidViewModel {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    private LiveData<List<ProductCategoryEntity>> productsCategories;
+    private final LiveData<List<ProductCategoryEntity>> productsCategories;
 
     public ProductsCategoriesViewModel(@NonNull Application application) {
         super(application);
@@ -35,8 +32,21 @@ public class ProductsCategoriesViewModel extends AndroidViewModel {
         return productsCategories;
     }
 
+    public ProductCategoryEntity get(int index){
+        return productsCategories.getValue().get(index);
+    }
+
     public void remove(int index){
         ProductCategoryEntity categoryToRemove = productsCategories.getValue().get(index);
         productCategoryRepository.remove(categoryToRemove);
+    }
+
+    public int size(){
+
+        if(productsCategories.getValue() == null){
+            return 0;
+        }
+
+        return productsCategories.getValue().size();
     }
 }

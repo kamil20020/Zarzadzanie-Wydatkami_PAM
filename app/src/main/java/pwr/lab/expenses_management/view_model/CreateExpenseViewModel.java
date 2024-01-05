@@ -10,9 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import lombok.Data;
 import pwr.lab.expenses_management.data.AppDatabase;
@@ -34,11 +32,11 @@ public class CreateExpenseViewModel extends AndroidViewModel {
         DATE,
     }
 
-    private Form form = new Form();
-    private MutableLiveData<List<Integer>> formErrors = new MutableLiveData<>(new ArrayList<>());
-    private List<ExpenseProductEntity> expenseProducts = new ArrayList<>();
-
+    private final Form form = new Form();
+    private final MutableLiveData<List<Integer>> formErrors = new MutableLiveData<>(new ArrayList<>());
     private final ExpenseRepository expenseRepository;
+
+    private CreateExpenseProductsViewModel createExpenseProductsViewModel;
 
     public CreateExpenseViewModel(@NonNull Application application) {
         super(application);
@@ -47,7 +45,12 @@ public class CreateExpenseViewModel extends AndroidViewModel {
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         this.expenseRepository = new ExpenseRepository(expenseDAO);
     }
-    public boolean validateForm(){
+
+    public void setCreateExpenseProductsViewModel(CreateExpenseProductsViewModel viewModel){
+        createExpenseProductsViewModel = viewModel;
+    }
+
+    public boolean validateForm() throws IllegalArgumentException{
 
         List<Integer> formErrorsData = formErrors.getValue();
 
@@ -66,19 +69,26 @@ public class CreateExpenseViewModel extends AndroidViewModel {
         return formErrorsData.isEmpty();
     }
 
-    public long createExpense() throws IllegalArgumentException{
+    public void createExpense(){
+
+        createExpenseProductsViewModel.validateForm();
 
         if(expenseRepository.existsByName(form.getTitle())){
             throw new IllegalArgumentException("Istnieje już wydatek o takiej nazwie");
         }
 
-        ExpenseEntity expenseEntity = ExpenseEntity.builder()
+        BigDecimal totalPrice = createExpenseProductsViewModel.getTotalPrice().getValue();
+        BigDecimal multiplier = BigDecimal.valueOf(100);
+        long convertedTotalPrice = totalPrice.multiply(multiplier).longValue();
+
+        ExpenseEntity toCreateExpense = ExpenseEntity.builder()
             .title(form.getTitle())
             .date(form.getDate().toString())
-            .totalPrice(0L)
+            .totalPrice(convertedTotalPrice)
             .build();
 
-        return expenseRepository.create(expenseEntity);
+        long createdExpenseId = expenseRepository.create(toCreateExpense);
+        createExpenseProductsViewModel.create((int) createdExpenseId);
     }
 
     public Form getForm(){

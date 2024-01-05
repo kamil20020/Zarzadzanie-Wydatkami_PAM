@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pwr.lab.expenses_management.R;
-import pwr.lab.expenses_management.data.entity.ProductEntity;
 import pwr.lab.expenses_management.view_model.ProductsViewModel;
 
 public class ProductsActivity extends AppCompatActivity {
@@ -22,20 +21,21 @@ public class ProductsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_products);
 
-        Toolbar toolbar = findViewById(R.id.navigation);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> {
-            finish();
-        });
-
         RecyclerView recyclerView = findViewById(R.id.products_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        Toolbar toolbar = findViewById(R.id.navigation);
 
         ProductsAdapter adapter = new ProductsAdapter();
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        setSupportActionBar(toolbar);
 
         viewModel.getAllProducts().observe(this, products -> {
             adapter.setProducts(products);
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
         });
     }
 }

@@ -1,8 +1,6 @@
 package pwr.lab.expenses_management.view_model;
 
 import android.app.Application;
-import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,24 +8,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import pwr.lab.expenses_management.data.AppDatabase;
-import pwr.lab.expenses_management.data.dao.ExpenseDAO;
 import pwr.lab.expenses_management.data.dao.ExpenseProductDAO;
 import pwr.lab.expenses_management.data.dao.ProductDAO;
-import pwr.lab.expenses_management.data.entity.ExpenseEntity;
 import pwr.lab.expenses_management.data.entity.ExpenseProductEntity;
 import pwr.lab.expenses_management.data.entity.ProductEntity;
 import pwr.lab.expenses_management.data.repository.ExpenseProductRepository;
-import pwr.lab.expenses_management.data.repository.ExpenseRepository;
 import pwr.lab.expenses_management.data.repository.ProductRepository;
 
 public class CreateExpenseProductsViewModel extends AndroidViewModel {
@@ -40,9 +33,9 @@ public class CreateExpenseProductsViewModel extends AndroidViewModel {
         private BigDecimal price = BigDecimal.ZERO;
     }
 
-    private MutableLiveData<BigDecimal> totalPrice = new MutableLiveData<>(BigDecimal.ZERO);
+    private final MutableLiveData<BigDecimal> totalPrice = new MutableLiveData<>(BigDecimal.ZERO);
 
-    private List<CreateExpenseProductsViewModel.Form> form = new ArrayList<>();
+    private final List<CreateExpenseProductsViewModel.Form> form = new ArrayList<>();
     private final ProductRepository productRepository;
     private final ExpenseProductRepository expenseProductRepository;
 
@@ -64,7 +57,7 @@ public class CreateExpenseProductsViewModel extends AndroidViewModel {
         form.add(emptyForm);
     }
 
-    public void validate() throws IllegalArgumentException{
+    public void validateForm() throws IllegalArgumentException{
 
         if(form.size() == 0) {
             throw new IllegalArgumentException("Nie podano produktów");
@@ -154,8 +147,6 @@ public class CreateExpenseProductsViewModel extends AndroidViewModel {
         BigDecimal newCount = BigDecimal.valueOf(newCountInt);
         BigDecimal newTotalProductPrice = newProductPrice.multiply(newCount);
         BigDecimal newTotalPrice = oldMinusTotalProductPrice.add(newTotalProductPrice);
-
-        System.out.println(newProductPrice);
 
         totalPrice.setValue(newTotalPrice);
     }

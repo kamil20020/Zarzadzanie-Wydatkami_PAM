@@ -26,16 +26,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button expensesButton = findViewById(R.id.expenses_button);
+        Button productsButton = findViewById(R.id.products_button);
+        Button categoriesButton = findViewById(R.id.categories_button);
+
         expensesButton.setOnClickListener(l -> {
             startActivity(new Intent(MainActivity.this, ExpensesActivity.class));
         });
 
-        Button productsButton = findViewById(R.id.products_button);
         productsButton.setOnClickListener(l -> {
             startActivity(new Intent(MainActivity.this, ProductsActivity.class));
         });
 
-        Button categoriesButton = findViewById(R.id.categories_button);
         categoriesButton.setOnClickListener(l -> {
             startActivity(new Intent(MainActivity.this, ProductsCategoriesActivity.class));
         });
