@@ -17,6 +17,12 @@
         tools:targetApi="31">
 
         <activity
+            android:name=".ui.reports.yearly.YearlyReportActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.reports.monthly.MonthlyReportActivity"
+            android:exported="true"/>
+        <activity
             android:name=".ui.expenses.create.CreateExpenseActivity"
             android:exported="true"/>
         <activity

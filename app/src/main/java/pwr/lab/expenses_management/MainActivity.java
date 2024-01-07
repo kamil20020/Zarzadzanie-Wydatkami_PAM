@@ -12,6 +12,7 @@ import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.ui.expenses.ExpensesActivity;
 import pwr.lab.expenses_management.ui.product_categories.ProductsCategoriesActivity;
 import pwr.lab.expenses_management.ui.products.ProductsActivity;
+import pwr.lab.expenses_management.ui.reports.monthly.MonthlyReportActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Button expensesButton = findViewById(R.id.expenses_button);
         Button productsButton = findViewById(R.id.products_button);
         Button categoriesButton = findViewById(R.id.categories_button);
+        Button reportsButton = findViewById(R.id.reports_button);
 
         expensesButton.setOnClickListener(l -> {
             startActivity(new Intent(MainActivity.this, ExpensesActivity.class));
@@ -39,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         categoriesButton.setOnClickListener(l -> {
             startActivity(new Intent(MainActivity.this, ProductsCategoriesActivity.class));
+        });
+
+        reportsButton.setOnClickListener(l -> {
+            startActivity(new Intent(MainActivity.this, MonthlyReportActivity.class));
         });
     }
 }
