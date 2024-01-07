@@ -13,6 +13,9 @@ import pwr.lab.expenses_management.data.entity.ProductCategoryEntity;
 @Dao
 public interface ProductCategoryDAO {
 
+    @Query("SELECT * FROM products_categories WHERE LOWER(name) = LOWER(:name)")
+    boolean existsByName(String name);
+
     @Query("SELECT * FROM products_categories")
     LiveData<List<ProductCategoryEntity>> loadAll();
 

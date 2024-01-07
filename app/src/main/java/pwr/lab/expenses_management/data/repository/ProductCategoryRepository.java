@@ -15,12 +15,19 @@ public class ProductCategoryRepository {
         productCategoryDAO = dao;
     }
 
+    public boolean existsByName(String name){
+        return productCategoryDAO.existsByName(name);
+    }
     public LiveData<List<ProductCategoryEntity>> getAll(){
         return productCategoryDAO.loadAll();
     }
 
     public List<ProductCategoryEntity> getAllStatic(){
         return productCategoryDAO.loadAllStatic();
+    }
+
+    public void create(ProductCategoryEntity categoryEntity) {
+        productCategoryDAO.insert(categoryEntity);
     }
 
     public void remove(ProductCategoryEntity category){

@@ -29,36 +29,35 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
+            android:layout_marginTop="26dp"
+            android:weightSum="3"
             android:paddingLeft="40dp"
             android:paddingRight="40dp" >
 
             <Button
                 android:id="@+id/show_add_category"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_weight="1"
                 android:text="Dodaj" />
 
             <EditText
                 android:id="@+id/category_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
+                android:hint="Nazwa"
                 android:ems="10"
-                android:hint="Data"
+                android:layout_weight="2"
                 android:visibility="gone"
                 android:inputType="text" />
 
             <Button
                 android:id="@+id/add_category"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:visibility="gone"
+                android:layout_weight="1"
+                android:layout_marginLeft="12dp"
                 android:text="Zapisz" />
 
         </LinearLayout>
@@ -67,6 +66,7 @@
             android:id="@+id/products_categories_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="24dp"
             app:reverseLayout="true" />
 
     </LinearLayout>
