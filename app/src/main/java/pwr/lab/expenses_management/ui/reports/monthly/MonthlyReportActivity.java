@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 
 import pwr.lab.expenses_management.R;
-import pwr.lab.expenses_management.ui.product_categories.ProductsCategoriesAdapter;
+import pwr.lab.expenses_management.ui.reports.categories_costs.CategoriesCostsAdapter;
 import pwr.lab.expenses_management.ui.reports.yearly.YearlyReportActivity;
 import pwr.lab.expenses_management.view_model.MonthlyReportViewModel;
 
 public class MonthlyReportActivity extends AppCompatActivity {
 
+    private MonthlyReportViewModel viewModel;
     private EditText yearPicker;
     private EditText monthPicker;
 
@@ -29,7 +31,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MonthlyReportViewModel viewModel = new ViewModelProvider(this).get(MonthlyReportViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MonthlyReportViewModel.class);
 
         setContentView(R.layout.activity_monthly_report);
 
@@ -37,9 +39,9 @@ public class MonthlyReportActivity extends AppCompatActivity {
         yearPicker = findViewById(R.id.year);
         monthPicker = findViewById(R.id.month);
         RecyclerView recyclerView = findViewById(R.id.categories_costs);
+        TextView totalCost = findViewById(R.id.total_cost);
         Toolbar toolbar = findViewById(R.id.navigation);
-
-        MonthlyReportAdapter adapter = new MonthlyReportAdapter();
+        CategoriesCostsAdapter adapter = new CategoriesCostsAdapter(viewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
@@ -49,6 +51,17 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         yearPicker.setOnClickListener(l -> handleYearPicker());
         monthPicker.setOnClickListener(l -> handleMonthPicker());
+
+        viewModel.getForm().observe(this, form -> {
+            viewModel.update();
+            yearPicker.setText(String.valueOf(form.getYear()));
+            monthPicker.setText(String.valueOf(form.getMonth()));
+        });
+
+        viewModel.getMonthlyReport().observe(this, monthlyReport -> {
+            adapter.update();
+            totalCost.setText("Łącznie: " + (int) viewModel.getTotalCost() + " zł");
+        });
 
         toolbar.setNavigationOnClickListener(v -> {
             finish();
@@ -73,7 +86,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         builder.setItems(years, (dialog, which) -> {
             String selectedYear = years[which];
-            yearPicker.setText(selectedYear);
+            viewModel.setYear(Integer.valueOf(selectedYear));
         });
 
         builder.show();
@@ -89,7 +102,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         builder.setItems(months, (dialog, which) -> {
             String selectedMonth = months[which];
-            monthPicker.setText(selectedMonth);
+            viewModel.setMonth(which + 1);
         });
 
         builder.show();
