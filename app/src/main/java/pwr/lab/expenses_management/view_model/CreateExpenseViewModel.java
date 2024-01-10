@@ -1,12 +1,27 @@
 package pwr.lab.expenses_management.view_model;
 
+import static android.os.Build.VERSION_CODES.R;
+
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.googlecode.tesseract.android.TessBaseAPI;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -67,6 +82,10 @@ public class CreateExpenseViewModel extends AndroidViewModel {
         formErrors.setValue(formErrorsData);
 
         return formErrorsData.isEmpty();
+    }
+
+    public void loadDataFromRecipe(Context context, Bitmap photo) throws IOException {
+        Ocr.loadDataFromRecipe(context, photo);
     }
 
     public void createExpense(){

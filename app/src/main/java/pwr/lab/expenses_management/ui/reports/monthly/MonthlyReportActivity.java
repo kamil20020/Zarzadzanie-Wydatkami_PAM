@@ -53,9 +53,16 @@ public class MonthlyReportActivity extends AppCompatActivity {
         monthPicker.setOnClickListener(l -> handleMonthPicker());
 
         viewModel.getForm().observe(this, form -> {
+
             viewModel.update();
-            yearPicker.setText(String.valueOf(form.getYear()));
-            monthPicker.setText(String.valueOf(form.getMonth()));
+
+            if(form.getYear() != 0){
+                yearPicker.setText(String.valueOf(form.getYear()));
+            }
+
+            if(form.getMonth() != 0){
+                monthPicker.setText(String.valueOf(form.getMonth()));
+            }
         });
 
         viewModel.getMonthlyReport().observe(this, monthlyReport -> {

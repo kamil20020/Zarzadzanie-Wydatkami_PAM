@@ -1,8 +1,10 @@
 package pwr.lab.expenses_management.ui.expenses.create;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Looper;
@@ -13,15 +15,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import pwr.lab.expenses_management.R;
@@ -46,6 +54,8 @@ public class CreateExpenseActivity extends AppCompatActivity {
     private TextView totalCostView;
 
     private CreateExpenseProductsAdapter expenseProductsAdapter;
+
+    private static final int ALL_PERMISSION_CODE = 303;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +89,7 @@ public class CreateExpenseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         expenseDateInput.setOnClickListener(l -> handleInputDate());
-        loadReceiptButton.setOnClickListener(l -> handleLoadPhoto());
+        loadReceiptButton.setOnClickListener(l -> checkPermissions());
         saveButton.setOnClickListener(l -> save());
         createEmptyExpenseProduct.setOnClickListener(l -> createEmptyExpenseProduct());
 
@@ -123,6 +133,42 @@ public class CreateExpenseActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void checkPermissions() {
+
+        String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        boolean hasPermissions = true;
+
+        for(String permission : permissions){
+
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED)  {
+                hasPermissions = false;
+            }
+        }
+
+        if(!hasPermissions){
+            ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSION_CODE);
+        }
+        else{
+            handleLoadPhoto();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == ALL_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                handleLoadPhoto();
+            }
+        }
+    }
+
     private void handleLoadPhoto(){
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -136,6 +182,14 @@ public class CreateExpenseActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+            try {
+                createExpenseViewModel.loadDataFromRecipe(this, photo);
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
             photo = Bitmap.createScaledBitmap(photo, 400, 500, false);
             loadReceiptButton.setImageBitmap(photo);
         }

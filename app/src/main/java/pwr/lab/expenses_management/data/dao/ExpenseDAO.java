@@ -46,6 +46,15 @@ public interface ExpenseDAO {
     )
     List<ExpenseDAO.CategoryCost> loadCategoriesSummary(String year, @Nullable String month);
 
+    @Query("""
+        SELECT SUM(total_price) / 100
+        FROM expenses
+        WHERE strftime('%Y', date) = :year
+        GROUP BY strftime('%m', date)
+    """
+    )
+    List<Double> loadYearSummary(String year);
+
     @Query("SELECT EXISTS(SELECT * FROM expenses WHERE title = :name)")
     boolean existsByName(String name);
 

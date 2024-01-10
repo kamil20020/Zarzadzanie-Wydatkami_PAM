@@ -25,9 +25,20 @@ public class ExpenseRepository {
     public List<ExpenseDAO.CategoryCost> loadReport(Integer year, Integer month){
 
         String yearStr = String.valueOf(year);
-        String monthStr = (month < 10 ? "0" : "") + month;
+        String monthStr;
+
+        if(month != null){
+            monthStr = (month < 10 ? "0" : "") + month;
+        }
+        else{
+            monthStr = null;
+        }
 
         return expenseDAO.loadCategoriesSummary(yearStr, monthStr);
+    }
+
+    public List<Double> loadYearSummary(Integer year){
+        return expenseDAO.loadYearSummary(String.valueOf(year));
     }
 
     public boolean existsByName(String name){

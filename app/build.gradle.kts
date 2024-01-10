@@ -54,4 +54,6 @@ dependencies {
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.rmtheis:tess-two:9.1.0")
 }

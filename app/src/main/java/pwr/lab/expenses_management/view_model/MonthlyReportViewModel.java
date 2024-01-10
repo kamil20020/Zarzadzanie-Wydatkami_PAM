@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pwr.lab.expenses_management.data.AppDatabase;
 import pwr.lab.expenses_management.data.dao.ExpenseDAO;
 import pwr.lab.expenses_management.data.dao.ExpenseProductDAO;
@@ -23,13 +24,7 @@ import pwr.lab.expenses_management.data.repository.ExpenseRepository;
 public class MonthlyReportViewModel extends AndroidViewModel implements CategoriesCostsViewModel{
 
     @Data
-    @AllArgsConstructor
-    public class MonthlyReport {
-        private List<ExpenseDAO.CategoryCost> categoriesCosts = new ArrayList<>();
-        private double totalCost = 0;
-    }
-
-    @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     public class Form {
         private Integer year = 0;
@@ -39,7 +34,7 @@ public class MonthlyReportViewModel extends AndroidViewModel implements Categori
     private final ExpenseRepository expenseRepository;
     private final ExpenseProductRepository expenseProductRepository;
     private final MutableLiveData<MonthlyReport> monthlyReport = new MutableLiveData<>();
-    private final MutableLiveData<Form> form = new MutableLiveData<>();
+    private final MutableLiveData<Form> form = new MutableLiveData<>(new Form());
 
     public MonthlyReportViewModel(@NonNull Application application) {
         super(application);
@@ -49,14 +44,6 @@ public class MonthlyReportViewModel extends AndroidViewModel implements Categori
         ExpenseProductDAO expenseProductDAO = appDatabase.expenseProductDAO();
         expenseRepository = new ExpenseRepository(expenseDAO);
         expenseProductRepository = new ExpenseProductRepository(expenseProductDAO);
-
-        LocalDate now = LocalDate.now();
-
-        Integer year = now.getYear();
-        Integer month = now.getMonthValue();
-
-        form.postValue(new Form(year, month));
-        update(year, month);
     }
 
     public LiveData<Form> getForm(){
@@ -77,24 +64,6 @@ public class MonthlyReportViewModel extends AndroidViewModel implements Categori
         ));
     }
 
-    private void update(Integer year, Integer month){
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-            List<ExpenseDAO.CategoryCost> categoriesCosts = expenseRepository.loadReport(
-                year, month
-            );
-
-            double totalCost = categoriesCosts.stream()
-                .mapToDouble(c -> c.getTotalCost())
-                .sum();
-
-            monthlyReport.postValue(new MonthlyReport(
-                categoriesCosts,
-                totalCost
-            ));
-        });
-    }
-
     public void update(){
 
         Form formValue = form.getValue();
@@ -103,7 +72,20 @@ public class MonthlyReportViewModel extends AndroidViewModel implements Categori
             return;
         }
 
-        update(formValue.getYear(), formValue.getMonth());
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<ExpenseDAO.CategoryCost> categoriesCosts = expenseRepository.loadReport(
+                formValue.getYear(), formValue.getMonth()
+            );
+
+            double totalCost = categoriesCosts.stream()
+                    .mapToDouble(c -> c.getTotalCost())
+                    .sum();
+
+            monthlyReport.postValue(new MonthlyReport(
+                    categoriesCosts,
+                    totalCost
+            ));
+        });
     }
 
     public ExpenseDAO.CategoryCost get(int index){
